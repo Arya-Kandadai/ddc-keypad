@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "author": "STM32 DDC/CI Monitor Switch",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-st-nucleo-c031c6", "id": "nucleo", "top": 0, "left": 0, "attrs": {} },
+
+    { "type": "chip-ddc-monitor", "id": "mon1", "top": -240, "left": -40,
+      "attrs": { "monitorId": "1", "initialInput": "15" } },
+    { "type": "chip-ddc-monitor", "id": "mon2", "top": -240, "left": 220,
+      "attrs": { "monitorId": "2", "initialInput": "15" } },
+
+    { "type": "wokwi-pushbutton", "id": "btn1", "top": 20,  "left": 340, "attrs": { "color": "blue",   "label": "Left > PC" } },
+    { "type": "wokwi-pushbutton", "id": "btn2", "top": 20,  "left": 460, "attrs": { "color": "white",  "label": "Left > Mac" } },
+    { "type": "wokwi-pushbutton", "id": "btn3", "top": 110, "left": 340, "attrs": { "color": "blue",   "label": "Right > PC" } },
+    { "type": "wokwi-pushbutton", "id": "btn4", "top": 110, "left": 460, "attrs": { "color": "white",  "label": "Right > Mac" } },
+    { "type": "wokwi-pushbutton", "id": "btn5", "top": 200, "left": 340, "attrs": { "color": "green",  "label": "All > PC" } },
+    { "type": "wokwi-pushbutton", "id": "btn6", "top": 200, "left": 460, "attrs": { "color": "green",  "label": "All > Mac" } },
+
+    { "type": "wokwi-led", "id": "ledOk",  "top": 60,  "left": -150, "attrs": { "color": "green", "label": "OK" } },
+    { "type": "wokwi-led", "id": "ledErr", "top": 60,  "left": -100, "attrs": { "color": "red",   "label": "ERR" } },
+    { "type": "wokwi-resistor", "id": "rOk",  "top": 160, "left": -160, "rotate": 90, "attrs": { "value": "330" } },
+    { "type": "wokwi-resistor", "id": "rErr", "top": 160, "left": -110, "rotate": 90, "attrs": { "value": "330" } },
+
+    { "type": "wokwi-logic-analyzer", "id": "logic1", "top": 380, "left": 40, "attrs": {} }
+  ],
+  "connections": [
+    [ "nucleo:PA2", "$serialMonitor:RX", "", [] ],
+    [ "nucleo:PA3", "$serialMonitor:TX", "", [] ],
+
+    [ "mon1:SCL", "nucleo:D15", "gold",  [] ],
+    [ "mon1:SDA", "nucleo:D14", "cyan",  [] ],
+    [ "mon2:SCL", "nucleo:D12", "gold",  [] ],
+    [ "mon2:SDA", "nucleo:D11", "cyan",  [] ],
+    [ "mon1:VCC", "nucleo:3V3.1", "red",   [] ],
+    [ "mon2:VCC", "nucleo:3V3.1", "red",   [] ],
+    [ "mon1:GND", "nucleo:GND.1", "black", [] ],
+    [ "mon2:GND", "nucleo:GND.1", "black", [] ],
+
+    [ "btn1:1.l", "nucleo:A0", "blue", [] ],
+    [ "btn2:1.l", "nucleo:A1", "blue", [] ],
+    [ "btn3:1.l", "nucleo:A2", "blue", [] ],
+    [ "btn4:1.l", "nucleo:D2", "blue", [] ],
+    [ "btn5:1.l", "nucleo:D3", "blue", [] ],
+    [ "btn6:1.l", "nucleo:D6", "blue", [] ],
+    [ "btn1:2.l", "nucleo:GND.9", "black", [] ],
+    [ "btn2:2.l", "nucleo:GND.9", "black", [] ],
+    [ "btn3:2.l", "nucleo:GND.9", "black", [] ],
+    [ "btn4:2.l", "nucleo:GND.9", "black", [] ],
+    [ "btn5:2.l", "nucleo:GND.9", "black", [] ],
+    [ "btn6:2.l", "nucleo:GND.9", "black", [] ],
+
+    [ "nucleo:D9", "rOk:1",  "green", [] ],
+    [ "nucleo:D8", "rErr:1", "red",   [] ],
+    [ "rOk:2",  "ledOk:A",  "green", [] ],
+    [ "rErr:2", "ledErr:A", "red",   [] ],
+    [ "ledOk:C",  "nucleo:GND.3", "black", [] ],
+    [ "ledErr:C", "nucleo:GND.3", "black", [] ],
+
+    [ "logic1:D0", "nucleo:D15", "gold",   [] ],
+    [ "logic1:D1", "nucleo:D14", "cyan",   [] ],
+    [ "logic1:D2", "nucleo:D12", "purple", [] ],
+    [ "logic1:D3", "nucleo:D11", "purple", [] ],
+    [ "logic1:GND", "nucleo:GND.8", "black", [] ]
+  ],
+  "dependencies": {}
+}

@@ -1,0 +1,19 @@
+{
+  "name": "DDC Monitor",
+  "author": "Monitor Switch Keypad",
+  "pins": ["VCC", "GND", "SCL", "SDA"],
+  "controls": [
+    {
+      "id": "errorRate",
+      "label": "Fault injection (%)",
+      "type": "range",
+      "min": 0,
+      "max": 50,
+      "step": 1
+    }
+  ],
+  "display": {
+    "width": 128,
+    "height": 64
+  }
+}
